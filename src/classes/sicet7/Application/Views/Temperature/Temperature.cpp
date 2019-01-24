@@ -2,6 +2,7 @@
 #include <classes/sicet7/Sensors/Temperature/Temperature.h>
 #include <classes/sicet7/Application/Views/MainMenu/MainMenu.h>
 #include <classes/sicet7/Serial/Console/Console.h>
+#include <classes/sicet7/Application/Threads/TemperatureThread/TemperatureThread.h>
 namespace sicet7{
     namespace Application{
         namespace Views{
@@ -10,8 +11,15 @@ namespace sicet7{
 
             rtos::Mutex* Temperature::instanceLock = new rtos::Mutex("TemperatureInstanceLock");
 
-            void Temperature::CustomActivate(){}
-            void Temperature::CustomDeactivate(){}
+            void Temperature::CustomActivate(){
+                osStatus err = sicet7::Application::Threads::TemperatureThread::Start();
+                if(err){
+                    sicet7::Serial::Console::Output("Failed to start TemperatureThread.");
+                }
+            }
+            void Temperature::CustomDeactivate(){
+                sicet7::Application::Threads::TemperatureThread::Pause();
+            }
             void Temperature::CustomUpdate(){
                 if(Temperature::temp != 0){
                     char buffer[30];
@@ -233,10 +241,10 @@ namespace sicet7{
                     Lcd::Position{0,69},
                     Lcd::Position{478,271},
                     Temperature::temp,
-                    &Font16,
+                    &Font24,
                     CENTER_MODE,
                     0,
-                    28
+                    100
                 );
 
                 text->SetUpdateInterval(500);

@@ -12,6 +12,10 @@ namespace sicet7{
         Temperature* Temperature::instance = 0;
         rtos::Mutex* Temperature::lockable = new rtos::Mutex("sicet7::Sensors::Temperature");
 
+        bool Temperature::IsDefined(){
+            return (Temperature::instance != 0);
+        }
+
         Temperature::Temperature(PinName pin, int b, uint64_t resistance){
             
             if(b >= 4250 && b <= 4299){

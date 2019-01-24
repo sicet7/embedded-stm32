@@ -108,7 +108,7 @@ namespace sicet7{
             }
 
             //Main::onBoardLed->write((Main::onBoardLed->read() == 1 ? 0 : 1));
-            ThisThread::sleep_for(1);//This is to prevent screen flicker.
+            ThisThread::sleep_for(1);//This is to reduse screen flicker.
 
             return 0;
 

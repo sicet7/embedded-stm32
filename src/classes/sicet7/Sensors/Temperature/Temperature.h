@@ -24,6 +24,7 @@ namespace sicet7{
             public:
 
                 //Singleton Methods
+                static bool IsDefined();
                 static Temperature* Get();
                 static void Set(PinName pin);
                 static void Set(PinName pin, int b);
