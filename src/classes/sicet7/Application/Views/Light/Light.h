@@ -6,6 +6,9 @@ namespace sicet7{
             class Light : public Lcd::View{
                 private: static Light* instance;
                 private: static rtos::Mutex* instanceLock;
+                
+                public: static Lcd::UpdatableOutput* output;
+                public: static AnalogIn* analogInput;
 
                 public: static Light* GetInstance();
 

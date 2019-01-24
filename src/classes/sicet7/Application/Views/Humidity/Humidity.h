@@ -3,16 +3,16 @@
 namespace sicet7{
     namespace Application{
         namespace Views{
-            class Sound : public Lcd::View{
-                private: static Sound* instance;
+            class Humidity : public Lcd::View{
+                private: static Humidity* instance;
                 private: static rtos::Mutex* instanceLock;
 
                 public: static Lcd::UpdatableOutput* output;
 
-                public: static Sound* GetInstance();
+                public: static Humidity* GetInstance();
 
-                private: Sound();
-                public: ~Sound();
+                private: Humidity();
+                public: ~Humidity();
 
                 public: virtual void CustomActivate() override;
                 public: virtual void CustomDeactivate() override;
