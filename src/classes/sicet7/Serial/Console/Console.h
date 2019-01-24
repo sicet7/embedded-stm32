@@ -1,17 +1,19 @@
-#ifndef MY_SERIAL_CONSOLE
-    #define MY_SERIAL_CONSOLE
+#pragma once
+#include <mbed.h>
 
-    namespace sicet7{
+namespace sicet7{
 
-        namespace Serial{
+    namespace Serial{
 
-            class Console{
-                public:
-                    static void Output(const char* customString);
-            };
-
-        }
+        class Console{
+            public:
+                static mbed::Serial* serial;
+                static void Output(const char* customString);
+                static void Output(const char* customString, bool newline);
+                static void Output(const char* customString, bool newline, bool threadPrefix);
+        };
 
     }
 
-#endif
+}
+
