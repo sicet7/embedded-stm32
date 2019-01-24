@@ -76,8 +76,7 @@ namespace sicet7{
         int Main::Setup(){
 
             //instantiate display object.
-            sicet7::Serial::Console::Output("Booting Temperature Sensor (setup)");
-            sicet7::Sensors::Temperature::Set(A0,4250,100000);
+            //sicet7::Serial::Console::Output("Booting Temperature Sensor (setup)");
 
             osStatus err = sicet7::Application::Threads::TouchThread::Start();
 

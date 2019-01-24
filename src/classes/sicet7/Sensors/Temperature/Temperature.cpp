@@ -89,5 +89,9 @@ namespace sicet7{
             return (Temperature::Celsius()*1.8f)+32;
         }
 
+        float Temperature::Kelvin(){
+            return Temperature::Celsius()+273.15f;
+        }
+
     }
 }

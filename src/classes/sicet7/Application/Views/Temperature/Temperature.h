@@ -10,6 +10,9 @@ namespace sicet7{
 
                 public: static Temperature* GetInstance();
 
+                public: Lcd::UpdatableOutput* temp = 0;
+                public: uint8_t temperatureFormat = 0;
+
                 private: Temperature();
                 public: ~Temperature();
 
@@ -22,6 +25,10 @@ namespace sicet7{
                 private: void SetupDisplay();
 
                 private: void Button1();
+                private: void Button2();
+                private: void Button3();
+                private: void Button4();
+                private: void MainText();
 
             };
         }
