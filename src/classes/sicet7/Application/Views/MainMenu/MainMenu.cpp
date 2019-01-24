@@ -10,6 +10,7 @@
 #include <classes/sicet7/Sensors/Temperature/Temperature.h>
 #include <classes/sicet7/Application/Views/Temperature/Temperature.h>
 #include <classes/sicet7/Application/Views/Sound/Sound.h>
+#include <classes/sicet7/Application/Views/Light/Light.h>
 #include <classes/sicet7/Lcd/Lcd.h>
 namespace sicet7{
     namespace Application{
@@ -75,6 +76,13 @@ namespace sicet7{
                 if(obj->GetName() == "Button2"){
                     if(obj->IsPress() == false){
                         sicet7::Lcd::Get()->ActivateView(sicet7::Application::Views::Sound::GetInstance());
+                    }
+                    return;
+                }
+
+                if(obj->GetName() == "Button3"){
+                    if(obj->IsPress() == false){
+                        sicet7::Lcd::Get()->ActivateView(sicet7::Application::Views::Light::GetInstance());
                     }
                     return;
                 }
@@ -156,6 +164,15 @@ namespace sicet7{
                     0,
                     19
                 );
+
+                Lcd::TouchObject* touchObj = new Lcd::TouchObject(
+                    "Button3",
+                    Lcd::Position{241,1},
+                    Lcd::Position{359,67}
+                );
+
+                touchObj->triggerFunction = &MainMenu::Button_Trigger;
+                MainMenu::AddTouchObject(touchObj);
 
                 MainMenu::AddDisplayObject("MainMenu_Button3_Container",rectangle);
                 MainMenu::AddDisplayObject("MainMenu_Button3_Text",text);
