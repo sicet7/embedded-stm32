@@ -60,6 +60,16 @@ namespace sicet7{
                 Lcd::Get()->Display()->SetTextColor(LCD_COLOR_GREEN);
             }
 
+            void MainMenu::Button_Trigger(Lcd::TouchObject* obj){
+                sicet7::Serial::Console::Output("",true,false);
+                sicet7::Serial::Console::Output(obj->GetName().c_str());
+                if(obj->IsPress()){
+                    sicet7::Serial::Console::Output("Pressed");
+                }else{
+                    sicet7::Serial::Console::Output("Released");
+                }
+            }
+
             void MainMenu::Button1(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
                     Lcd::Position{0,0},
@@ -75,6 +85,15 @@ namespace sicet7{
                     0,
                     19
                 );
+
+                Lcd::TouchObject* touchObj = new Lcd::TouchObject(
+                    "Button1",
+                    Lcd::Position{1,1},
+                    Lcd::Position{119,67}
+                );
+
+                touchObj->triggerFunction = &MainMenu::Button_Trigger;
+                MainMenu::AddTouchObject(touchObj);
 
                 MainMenu::AddDisplayObject("Button1_Container",rectangle);
                 MainMenu::AddDisplayObject("Button1_Text",text);

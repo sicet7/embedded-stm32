@@ -14,6 +14,8 @@ namespace sicet7{
 
                 DigitalOut* onBoardLed;
 
+                static rtos::Mutex* singletonLock;
+
                 static Main* GetInstance();
                 ~Main();
 
@@ -31,7 +33,6 @@ namespace sicet7{
             private:
 
                 bool running = false;
-                bool pressInProgress[5];
                 bool setupComplete;
                 bool cleanUpComplete;
 

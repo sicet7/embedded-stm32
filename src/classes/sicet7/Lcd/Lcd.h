@@ -101,10 +101,12 @@ namespace sicet7{
             );
 
             protected: bool IsBeingTouched();
+            public: void Trigger();
 
             public: Position TopLeft();
             public: Position BottomRight();
-            public: void Trigger();
+            public: std::string GetName();
+            public: bool IsPress();
 
         };
 

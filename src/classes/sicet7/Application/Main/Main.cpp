@@ -1,16 +1,17 @@
 #include <classes/sicet7/Application/Main/Main.h>
 #include <classes/sicet7/Application/Core/Core.h>
-#include <classes/sicet7/Application/Action/Action.h>
 #include <iostream>
 #include <math.h>
 #include <cmath>
 #include <mbed.h>
+#include <rtos.h>
 #include <LCD_DISCO_F746NG.h>
 #include <classes/sicet7/Convert.h>
 #include <classes/sicet7/Serial/Console/Console.h>
 #include <classes/sicet7/Sensors/Temperature/Temperature.h>
 #include <classes/sicet7/Lcd/Lcd.h>
 #include <classes/sicet7/Application/Views/MainMenu/MainMenu.h>
+#include <classes/sicet7/Application/Threads/TouchThread/TouchThread.h>
 
 //A0 is used for Temperature Sensor
 
@@ -18,14 +19,7 @@ namespace sicet7{
     namespace Application{
 
         Main* Main::instance = 0;
-
-        /*InterruptIn Main::obb_ub(USER_BUTTON);
-        DigitalOut Main::obl_l1(LED1);
-        AnalogIn Main::bb_aia0(A0);
-        AnalogIn Main::bb_aia1(A1);
-        AnalogIn Main::bb_aia2(A2);*/
-
-        uint16_t state = 0;
+        rtos::Mutex* Main::singletonLock = new rtos::Mutex("ApplicationMainSingletonLock");
 
         /**
          * @file Main.cpp
@@ -62,9 +56,11 @@ namespace sicet7{
          * @return Main&
          */
         Main* Main::GetInstance(){
+            Main::singletonLock->lock();
             if(Main::instance == 0){
                 Main::instance = new Main();
             }
+            Main::singletonLock->unlock();
             return Main::instance;
         }
 
@@ -80,10 +76,16 @@ namespace sicet7{
         int Main::Setup(){
 
             //instantiate display object.
-            sicet7::Serial::Console::Output("Booting Display (setup)");
-
             sicet7::Serial::Console::Output("Booting Temperature Sensor (setup)");
             sicet7::Sensors::Temperature::Set(A0,4250,100000);
+
+            osStatus err = sicet7::Application::Threads::TouchThread::Start();
+
+            if(err){
+                sicet7::Serial::Console::Output("Failed to Start TouchThread.");
+            }else{
+                sicet7::Serial::Console::Output("TouchThread Started.");
+            }
 
             return 0;
         }
@@ -103,10 +105,11 @@ namespace sicet7{
                 Lcd::Get()->ActivateView(sicet7::Application::Views::MainMenu::GetInstance());
             }else{
                 Lcd::Get()->CurrentView()->Update();
+                //Lcd::Get()->CurrentView()->ProcessTouch();
             }
 
-            Main::onBoardLed->write((Main::onBoardLed->read() == 1 ? 0 : 1));
-            ThisThread::sleep_for(1000);
+            //Main::onBoardLed->write((Main::onBoardLed->read() == 1 ? 0 : 1));
+            ThisThread::sleep_for(1);//This is to prevent screen flicker.
 
             return 0;
 
@@ -122,6 +125,7 @@ namespace sicet7{
          * @return int
          */
         int Main::CleanUp(){
+            sicet7::Application::Threads::TouchThread::Stop();
             return 0;
         }
 

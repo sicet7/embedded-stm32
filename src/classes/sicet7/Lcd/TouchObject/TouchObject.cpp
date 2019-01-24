@@ -93,4 +93,18 @@ namespace sicet7{
         return false;
     }
 
+    /**
+     * @brief Returns true if the object state is "being touched".
+     * 
+     * @return true 
+     * @return false 
+     */
+    bool Lcd::TouchObject::IsPress(){
+        return Lcd::TouchObject::beingTouched;
+    }
+
+    std::string Lcd::TouchObject::GetName(){
+        return Lcd::TouchObject::name;
+    }
+
 }

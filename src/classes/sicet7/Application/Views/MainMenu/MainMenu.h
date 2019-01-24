@@ -27,6 +27,8 @@ namespace sicet7{
 
                 private: void SetupDisplay();
 
+                public: static void Button_Trigger(Lcd::TouchObject* obj);
+
                 private: void Button1();
                 private: void Button2();
                 private: void Button3();
