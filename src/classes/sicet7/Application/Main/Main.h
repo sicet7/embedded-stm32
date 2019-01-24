@@ -14,8 +14,6 @@ namespace sicet7{
 
                 DigitalOut* onBoardLed;
 
-                static Lcd::View* activeView;
-
                 static Main* GetInstance();
                 ~Main();
 

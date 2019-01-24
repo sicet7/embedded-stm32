@@ -23,8 +23,6 @@ namespace sicet7{
         AnalogIn Main::bb_aia1(A1);
         AnalogIn Main::bb_aia2(A2);*/
 
-        Main* Main::instance = 0;
-        Lcd::View* Main::activeView = 0;
         uint16_t state = 0;
 
         /**
@@ -81,7 +79,6 @@ namespace sicet7{
 
             //instantiate display object.
             sicet7::Serial::Console::Output("Booting Display (setup)");
-            Main::activeView = sicet7::Application::Views::MainMenu::GetInstance();
 
             sicet7::Serial::Console::Output("Booting Temperature Sensor (setup)");
             sicet7::Sensors::Temperature::Set(A0,4250,100000);
@@ -100,12 +97,12 @@ namespace sicet7{
          */
         int Main::Loop(){
             
-
-            if(Main::activeView->IsActivated() != true){
-                Lcd::Get()->ActivateView(Main::activeView);
+            if(Lcd::Get()->CurrentView() == 0){//fallback view if no view has been activated.
+                Lcd::Get()->ActivateView(sicet7::Application::Views::MainMenu::GetInstance());
             }else{
-                Main::activeView->Update();
+                Lcd::Get()->CurrentView()->Update();
             }
+
             Main::onBoardLed->write((Main::onBoardLed->read() == 1 ? 0 : 1));
             ThisThread::sleep_for(1000);
 
