@@ -39,6 +39,8 @@ namespace sicet7{
         /// This property stores the pointer to the Touch Lock Mutex instance.
         private: rtos::Mutex* touchLockInstance = NULL;
 
+        private: rtos::Mutex* viewLockInstance = NULL;
+
         /// Private constructor prevents manual instanziation of the super class.
         private: Lcd();
 
@@ -56,6 +58,8 @@ namespace sicet7{
 
         /// This method should return a pointer to the mutex that should be locked while processing touch input.
         public: rtos::Mutex* TouchLock();
+
+        public: rtos::Mutex* ViewLock();
 
         /// Public destructor to prevent a crash when the Application Reboots.
         public: ~Lcd();

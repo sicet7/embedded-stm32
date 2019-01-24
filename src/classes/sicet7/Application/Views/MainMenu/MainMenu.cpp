@@ -8,6 +8,8 @@
 #include <classes/sicet7/Application/Views/MainMenu/MainMenu.h>
 #include <classes/sicet7/Serial/Console/Console.h>
 #include <classes/sicet7/Sensors/Temperature/Temperature.h>
+#include <classes/sicet7/Application/Views/Temperature/Temperature.h>
+#include <classes/sicet7/Lcd/Lcd.h>
 namespace sicet7{
     namespace Application{
         namespace Views{
@@ -61,12 +63,13 @@ namespace sicet7{
             }
 
             void MainMenu::Button_Trigger(Lcd::TouchObject* obj){
-                sicet7::Serial::Console::Output("",true,false);
-                sicet7::Serial::Console::Output(obj->GetName().c_str());
-                if(obj->IsPress()){
-                    sicet7::Serial::Console::Output("Pressed");
+                if(
+                    obj->GetName() == "Button1" &&
+                    obj->IsPress() == false
+                ){
+                    sicet7::Lcd::Get()->ActivateView(sicet7::Application::Views::Temperature::GetInstance());
                 }else{
-                    sicet7::Serial::Console::Output("Released");
+                    sicet7::Serial::Console::Output("No Action Bound to this button.");
                 }
             }
 
@@ -95,9 +98,9 @@ namespace sicet7{
                 touchObj->triggerFunction = &MainMenu::Button_Trigger;
                 MainMenu::AddTouchObject(touchObj);
 
-                MainMenu::AddDisplayObject("Button1_Container",rectangle);
-                MainMenu::AddDisplayObject("Button1_Text",text);
-                MainMenu::AddRelationship("Button1_Container","Button1_Text");
+                MainMenu::AddDisplayObject("MainMenu_Button1_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button1_Text",text);
+                MainMenu::AddRelationship("MainMenu_Button1_Container","MainMenu_Button1_Text");
             }
 
             void MainMenu::Button2(){
@@ -116,9 +119,9 @@ namespace sicet7{
                     19
                 );
 
-                MainMenu::AddDisplayObject("Button2_Container",rectangle);
-                MainMenu::AddDisplayObject("Button2_Text",text);
-                MainMenu::AddRelationship("Button2_Container","Button2_Text");
+                MainMenu::AddDisplayObject("MainMenu_Button2_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button2_Text",text);
+                MainMenu::AddRelationship("MainMenu_Button2_Container","MainMenu_Button2_Text");
             }
             void MainMenu::Button3(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -136,9 +139,9 @@ namespace sicet7{
                     19
                 );
 
-                MainMenu::AddDisplayObject("Button3_Container",rectangle);
-                MainMenu::AddDisplayObject("Button3_Text",text);
-                MainMenu::AddRelationship("Button3_Container","Button3_Text");
+                MainMenu::AddDisplayObject("MainMenu_Button3_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button3_Text",text);
+                MainMenu::AddRelationship("MainMenu_Button3_Container","MainMenu_Button3_Text");
             }
             void MainMenu::Button4(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -156,9 +159,9 @@ namespace sicet7{
                     19
                 );
 
-                MainMenu::AddDisplayObject("Button4_Container",rectangle);
-                MainMenu::AddDisplayObject("Button4_Text",text);
-                MainMenu::AddRelationship("Button4_Container","Button4_Text");
+                MainMenu::AddDisplayObject("MainMenu_Button4_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button4_Text",text);
+                MainMenu::AddRelationship("MainMenu_Button4_Container","MainMenu_Button4_Text");
             }
             void MainMenu::Button5(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -166,7 +169,7 @@ namespace sicet7{
                     Lcd::Size{120,68}
                 );
 
-                MainMenu::AddDisplayObject("Button5_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button5_Container",rectangle);
             }
             void MainMenu::Button6(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -174,7 +177,7 @@ namespace sicet7{
                     Lcd::Size{120,68}
                 );
 
-                MainMenu::AddDisplayObject("Button6_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button6_Container",rectangle);
             }
             void MainMenu::Button7(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -182,7 +185,7 @@ namespace sicet7{
                     Lcd::Size{120,68}
                 );
 
-                MainMenu::AddDisplayObject("Button7_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button7_Container",rectangle);
             }
             void MainMenu::Button8(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -190,7 +193,7 @@ namespace sicet7{
                     Lcd::Size{119,68}
                 );
 
-                MainMenu::AddDisplayObject("Button8_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button8_Container",rectangle);
             }
             void MainMenu::Button9(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -198,7 +201,7 @@ namespace sicet7{
                     Lcd::Size{120,68}
                 );
 
-                MainMenu::AddDisplayObject("Button9_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button9_Container",rectangle);
             }
             void MainMenu::Button10(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -206,7 +209,7 @@ namespace sicet7{
                     Lcd::Size{120,68}
                 );
 
-                MainMenu::AddDisplayObject("Button10_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button10_Container",rectangle);
             }
             void MainMenu::Button11(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -214,7 +217,7 @@ namespace sicet7{
                     Lcd::Size{120,68}
                 );
 
-                MainMenu::AddDisplayObject("Button11_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button11_Container",rectangle);
             }
             void MainMenu::Button12(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -222,7 +225,7 @@ namespace sicet7{
                     Lcd::Size{119,68}
                 );
 
-                MainMenu::AddDisplayObject("Button12_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button12_Container",rectangle);
             }
             void MainMenu::Button13(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -230,7 +233,7 @@ namespace sicet7{
                     Lcd::Size{120,67}
                 );
 
-                MainMenu::AddDisplayObject("Button13_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button13_Container",rectangle);
             }
             void MainMenu::Button14(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -238,7 +241,7 @@ namespace sicet7{
                     Lcd::Size{120,67}
                 );
 
-                MainMenu::AddDisplayObject("Button14_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button14_Container",rectangle);
             }
             void MainMenu::Button15(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -246,7 +249,7 @@ namespace sicet7{
                     Lcd::Size{120,67}
                 );
 
-                MainMenu::AddDisplayObject("Button15_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button15_Container",rectangle);
             }
             void MainMenu::Button16(){
                 Lcd::Rectangle* rectangle = new Lcd::Rectangle(
@@ -254,7 +257,7 @@ namespace sicet7{
                     Lcd::Size{119,67}
                 );
 
-                MainMenu::AddDisplayObject("Button16_Container",rectangle);
+                MainMenu::AddDisplayObject("MainMenu_Button16_Container",rectangle);
             }
         }
     }

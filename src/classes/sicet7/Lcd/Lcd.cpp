@@ -72,6 +72,18 @@ namespace sicet7{
 
     }
 
+    rtos::Mutex* Lcd::ViewLock(){
+        Lcd::subInstanceLock->lock();
+
+        if(Lcd::viewLockInstance == NULL){
+            Lcd::viewLockInstance = new rtos::Mutex("ViewLock");
+        }
+
+        Lcd::subInstanceLock->unlock();
+
+        return Lcd::viewLockInstance;
+    }
+
     LCD_DISCO_F746NG* Lcd::Display(){
         Lcd::subInstanceLock->lock();
 
@@ -122,13 +134,13 @@ namespace sicet7{
     }
 
     void Lcd::ActivateView(Lcd::View* view){
+        Lcd::ViewLock()->lock();
         if(Lcd::CurrentView() != 0){
             Lcd::CurrentView()->Deactivate();
         }
-        Lcd::DrawLock()->lock();
         Lcd::currentView = view;
-        Lcd::DrawLock()->unlock();
         Lcd::CurrentView()->Activate();
+        Lcd::ViewLock()->unlock();
     }
 
     Lcd::View* Lcd::CurrentView(){
