@@ -1,5 +1,6 @@
 #pragma once
 #include <classes/sicet7/Lcd/Lcd.h>
+#include <classes/sicet7/Sensors/TemperatureAndHumidity/TemperatureAndHumidity.h>
 namespace sicet7{
     namespace Application{
         namespace Views{

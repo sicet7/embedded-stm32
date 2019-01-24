@@ -2,6 +2,7 @@
 #include <mbed.h>
 #include <classes/sicet7/Application/Views/MainMenu/MainMenu.h>
 #include <classes/sicet7/Serial/Console/Console.h>
+#include <classes/sicet7/Application/Threads/TemperatureAndHumidityThread/TemperatureAndHumidityThread.h>
 namespace sicet7{
     namespace Application{
         namespace Views{
@@ -28,11 +29,29 @@ namespace sicet7{
                 Humidity::SetupDisplay();
                 Humidity::Button1();
                 Humidity::MainText();
+                sicet7::Sensors::TemperatureAndHumidity::Set(new DHT(D2,DHT22));
             }
 
-            void Humidity::CustomActivate(){}
-            void Humidity::CustomDeactivate(){}
-            void Humidity::CustomUpdate(){}
+            void Humidity::CustomActivate(){
+                sicet7::Application::Threads::TemperatureAndHumidityThread::Start();
+            }
+
+            void Humidity::CustomDeactivate(){
+                sicet7::Application::Threads::TemperatureAndHumidityThread::Pause();
+            }
+
+            void Humidity::CustomUpdate(){
+                if(sicet7::Sensors::TemperatureAndHumidity::IsDefined() == true && Humidity::output != 0){
+                    char buffer[30];
+                    sprintf(
+                        buffer,
+                        "%f",
+                        sicet7::Sensors::TemperatureAndHumidity::Get()->ReadHumidity()
+                    );
+                    Humidity::output->Update(buffer);
+                   
+                }
+            }
 
             void Humidity::Button_Trigger(Lcd::TouchObject* obj){
 
@@ -99,7 +118,7 @@ namespace sicet7{
                     100
                 );
 
-                text->SetUpdateInterval(500);
+                text->SetUpdateInterval(2000);
 
                 Humidity::AddDisplayObject("Humidity_MainText",text);
 
