@@ -17,6 +17,8 @@
 namespace sicet7{
     namespace Application{
 
+        Main* Main::instance = 0;
+
         /*InterruptIn Main::obb_ub(USER_BUTTON);
         DigitalOut Main::obl_l1(LED1);
         AnalogIn Main::bb_aia0(A0);
@@ -60,10 +62,10 @@ namespace sicet7{
          * @return Main&
          */
         Main* Main::GetInstance(){
-            if(instance == 0){
-                instance = new Main();
+            if(Main::instance == 0){
+                Main::instance = new Main();
             }
-            return instance;
+            return Main::instance;
         }
 
         /**

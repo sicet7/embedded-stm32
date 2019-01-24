@@ -18,7 +18,7 @@ namespace sicet7{
 
     }
 
-    void Lcd::View::AddTouchObject(Lcd::TouchObject to){
+    void Lcd::View::AddTouchObject(Lcd::TouchObject* to){
 
         Lcd::View::touchObjects.push_back(to);
 
@@ -124,6 +124,16 @@ namespace sicet7{
         CustomDeactivate();
 
         View::activated = false;
+    }
+
+    void Lcd::View::ProcessTouch(){
+        
+        std::vector<Lcd::TouchObject*>::iterator itera;
+
+        for(itera = Lcd::View::touchObjects.begin(); itera != Lcd::View::touchObjects.end(); ++itera){
+            (*itera)->Trigger();
+        }
+
     }
 
     void Lcd::View::CustomActivate(){

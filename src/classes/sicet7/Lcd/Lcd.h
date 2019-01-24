@@ -108,7 +108,11 @@ namespace sicet7{
 
         };
 
-        protected: class DisplayObject{
+        /**
+         * @brief This is a abstact definition of the way DisplayObject's is handled.
+         * @warning This Object is Abstract and can therefor not be passed by copy.
+         */
+        public: class DisplayObject{
             protected: static vector<std::string> allNames;
             protected: static rtos::Mutex* nameManagementLock;
             protected: std::string name = "default";
@@ -166,7 +170,7 @@ namespace sicet7{
             public: ~View();
 
             /// This vector should contain all the touchObjects on the view.
-            protected: vector<TouchObject> touchObjects;
+            protected: vector<TouchObject*> touchObjects;
 
             /// This vector should contain all the displayObjects in the view.
             protected: vector<DisplayObject*> displayObjects;
@@ -175,7 +179,7 @@ namespace sicet7{
             protected: bool activated = false;
 
             /// This method Add's a TouchObject Pointer to the View's "touchObjects" vector.
-            public: void AddTouchObject(TouchObject to);
+            public: void AddTouchObject(TouchObject* to);
 
             /// This method Add's a DisplayObject Pointer to the View's "displayObjects" vector.
             public: void AddDisplayObject(std::string uniqueName, DisplayObject* dis);
@@ -192,7 +196,11 @@ namespace sicet7{
             /// This method returns a boolean value that represents whether or not the view is activated.
             public: bool IsActivated();
 
+            /// This method should be called when wanting to update DisplayObject's display state.
             public: void Update();
+
+            /// This method should be called when wanting to process the current touch state.
+            public: void ProcessTouch();
 
             /** This method is called after the "Activate" method.
               * This method should be implemented in classes that inherit from the "view" class. */
