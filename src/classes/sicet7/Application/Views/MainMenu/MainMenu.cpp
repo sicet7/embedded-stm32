@@ -9,6 +9,7 @@
 #include <classes/sicet7/Serial/Console/Console.h>
 #include <classes/sicet7/Sensors/Temperature/Temperature.h>
 #include <classes/sicet7/Application/Views/Temperature/Temperature.h>
+#include <classes/sicet7/Application/Views/Sound/Sound.h>
 #include <classes/sicet7/Lcd/Lcd.h>
 namespace sicet7{
     namespace Application{
@@ -63,14 +64,22 @@ namespace sicet7{
             }
 
             void MainMenu::Button_Trigger(Lcd::TouchObject* obj){
-                if(
-                    obj->GetName() == "Button1" &&
-                    obj->IsPress() == false
-                ){
-                    sicet7::Lcd::Get()->ActivateView(sicet7::Application::Views::Temperature::GetInstance());
-                }else{
-                    sicet7::Serial::Console::Output("No Action Bound to this button.");
+
+                if(obj->GetName() == "Button1"){
+                    if(obj->IsPress() == false){
+                        sicet7::Lcd::Get()->ActivateView(sicet7::Application::Views::Temperature::GetInstance());
+                    }
+                    return;
                 }
+                
+                if(obj->GetName() == "Button2"){
+                    if(obj->IsPress() == false){
+                        sicet7::Lcd::Get()->ActivateView(sicet7::Application::Views::Sound::GetInstance());
+                    }
+                    return;
+                }
+
+                sicet7::Serial::Console::Output("No Action Bound to this button.");
             }
 
             void MainMenu::Button1(){
@@ -118,6 +127,15 @@ namespace sicet7{
                     0,
                     19
                 );
+
+                Lcd::TouchObject* touchObj = new Lcd::TouchObject(
+                    "Button2",
+                    Lcd::Position{121,1},
+                    Lcd::Position{239,67}
+                );
+
+                touchObj->triggerFunction = &MainMenu::Button_Trigger;
+                MainMenu::AddTouchObject(touchObj);
 
                 MainMenu::AddDisplayObject("MainMenu_Button2_Container",rectangle);
                 MainMenu::AddDisplayObject("MainMenu_Button2_Text",text);

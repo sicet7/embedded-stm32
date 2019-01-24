@@ -73,37 +73,33 @@ namespace sicet7{
 
             void Temperature::Button_Trigger(Lcd::TouchObject* obj){
 
-                if(
-                    obj->GetName() == "Button1" && 
-                    obj->IsPress() == false
-                ){
-                    Lcd::Get()->ActivateView(
-                        sicet7::Application::Views::MainMenu::GetInstance()
-                    );
+                if(obj->GetName() == "Button1"){
+                    if(obj->IsPress() == false){
+                        Lcd::Get()->ActivateView(
+                            sicet7::Application::Views::MainMenu::GetInstance()
+                        );
+                    }
                     return;
                 }
 
-                if(
-                    obj->GetName() == "Button2" && 
-                    obj->IsPress() == false
-                ){
-                    sicet7::Application::Views::Temperature::GetInstance()->temperatureFormat = 0;
+                if(obj->GetName() == "Button2"){
+                    if(obj->IsPress() == false){
+                        sicet7::Application::Views::Temperature::GetInstance()->temperatureFormat = 0;
+                    }
                     return;
                 }
 
-                if(
-                    obj->GetName() == "Button3" && 
-                    obj->IsPress() == false
-                ){
-                    sicet7::Application::Views::Temperature::GetInstance()->temperatureFormat = 1;
+                if(obj->GetName() == "Button3"){
+                    if(obj->IsPress() == false){
+                        sicet7::Application::Views::Temperature::GetInstance()->temperatureFormat = 1;
+                    }
                     return;
                 }
 
-                if(
-                    obj->GetName() == "Button4" && 
-                    obj->IsPress() == false
-                ){
-                    sicet7::Application::Views::Temperature::GetInstance()->temperatureFormat = 2;
+                if(obj->GetName() == "Button4"){
+                    if(obj->IsPress() == false){
+                        sicet7::Application::Views::Temperature::GetInstance()->temperatureFormat = 2;
+                    }
                     return;
                 }
 
