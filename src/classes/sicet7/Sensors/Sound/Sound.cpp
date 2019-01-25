@@ -4,7 +4,6 @@ namespace sicet7{
     namespace Sensors{
 
         Sound* Sound::instance = 0;
-        AnalogIn* Sound::anInput = 0;
 
         rtos::Mutex* Sound::singletonLock = new rtos::Mutex("SoundSensorSingletonLock");
 

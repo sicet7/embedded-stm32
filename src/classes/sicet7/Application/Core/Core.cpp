@@ -1,3 +1,11 @@
+/**
+ * @file Core.cpp
+ * @author Martin René Sørensen (sicet7@randomphp.com)
+ * @brief Implements Core Application Functionality
+ * @version 0.1
+ * @date 2019-01-25
+ * 
+ */
 #include <classes/sicet7/Application/Core/Core.h>
 #include <mbed.h>
 #include <classes/sicet7/Serial/Console/Console.h>
@@ -6,13 +14,9 @@ namespace sicet7{
     namespace Application{
 
         /**
-         * @file Core.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/16/2019
+         * @brief Returns the tickrate of the processor.
          * 
-         * @private
-         * 
-         * @return uint32_t
+         * @return uint32_t 
          */
         uint32_t Core::GetTickRateHz(){
             uint32_t tickrate;
@@ -34,13 +38,9 @@ namespace sicet7{
         }
 
         /**
-         * @file Core.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/16/2019
+         * @brief returns the amount of milliseconds passed every tick.
          * 
-         * @private
-         * 
-         * @return uint32_t
+         * @return uint32_t 
          */
         uint32_t Core::GetTickPerMs(){
             uint32_t tickPerMs;
@@ -62,13 +62,9 @@ namespace sicet7{
         }
 
         /**
-         * @file Core.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/16/2019
-         * 
-         * @public
-         * 
-         * @return uint32_t
+         * @brief Returns the amount of milliseconds passed since the program started.
+         * @warning CAN OVERFLOW.
+         * @return uint32_t 
          */
         uint32_t Core::Millis(){
             
@@ -80,13 +76,8 @@ namespace sicet7{
         }
 
         /**
-         * @file Core.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/16/2019
+         * @brief Prints the Processor Information to the Serial Output.
          * 
-         * @public
-         * 
-         * @return void
          */
         void Core::PrintDeviceInfo(){
 

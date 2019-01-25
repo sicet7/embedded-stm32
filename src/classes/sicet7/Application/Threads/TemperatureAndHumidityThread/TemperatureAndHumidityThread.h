@@ -1,3 +1,11 @@
+/**
+ * @file TemperatureAndHumidityThread.h
+ * @author Martin René Sørensen (sicet7@randomphp.com)
+ * @brief Defines the Temperature And Humidity Thread class.
+ * @version 0.1
+ * @date 2019-01-25
+ * 
+ */
 #pragma once
 #include <mbed.h>
 #include <rtos.h>

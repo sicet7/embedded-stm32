@@ -1,3 +1,11 @@
+/**
+ * @file Core.h
+ * @author Martin René Sørensen (sicet7@randomphp.com)
+ * @brief Definition of the Application::Core Class.
+ * @version 0.1
+ * @date 2019-01-25
+ * 
+ */
 #pragma once
 #include <mbed.h>
 namespace sicet7{

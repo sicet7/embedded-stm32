@@ -1,3 +1,11 @@
+/**
+ * @file Main.cpp
+ * @author Martin René Sørensen (sicet7@randomphp.com)
+ * @brief Implements the Application::Main class.
+ * @version 0.1
+ * @date 2019-01-25
+ * 
+ */
 #include <classes/sicet7/Application/Main/Main.h>
 #include <classes/sicet7/Application/Core/Core.h>
 #include <iostream>
@@ -13,8 +21,6 @@
 #include <classes/sicet7/Application/Views/MainMenu/MainMenu.h>
 #include <classes/sicet7/Application/Threads/TouchThread/TouchThread.h>
 
-//A0 is used for Temperature Sensor
-
 namespace sicet7{
     namespace Application{
 
@@ -22,38 +28,21 @@ namespace sicet7{
         rtos::Mutex* Main::singletonLock = new rtos::Mutex("ApplicationMainSingletonLock");
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/11/2019
+         * @brief Construct a new Application::Main object
          * 
-         * @constructor
-         * 
-         * @private
-         * 
-         * @return Main
          */
-        Main::Main(){//TODO: Move this to the Setup method.
+        Main::Main(){
 
-            //static InterruptIn obb_ub(USER_BUTTON);
-            static DigitalOut obl_l1(LED1);
+//            static DigitalOut obl_l1(LED1);
 
-            //create pointer to USER_BUTTON
-            //Main::onBoardButton = &obb_ub;
-            
-            //create pointer to LED1
-            Main::onBoardLed = &obl_l1;
+//            Main::onBoardLed = &obl_l1;
 
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief This method should be used to get a pointer to the current Application::Main instance.
          * 
-         * @public
-         * @static
-         * 
-         * @return Main&
+         * @return Main* 
          */
         Main* Main::GetInstance(){
             Main::singletonLock->lock();
@@ -65,18 +54,11 @@ namespace sicet7{
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief This Method is Part of the Run stack. This method is the Setup function in the Application, meaning that it is only run once.
          * 
-         * @private
-         * 
-         * @return int
+         * @return int 
          */
         int Main::Setup(){
-
-            //instantiate display object.
-            //sicet7::Serial::Console::Output("Booting Temperature Sensor (setup)");
 
             osStatus err = sicet7::Application::Threads::TouchThread::Start();
 
@@ -90,13 +72,9 @@ namespace sicet7{
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief This Method is a part of the Run Stack. This method is the main loop of the Application.
          * 
-         * @private
-         * 
-         * @return int
+         * @return int 
          */
         int Main::Loop(){
             
@@ -115,13 +93,9 @@ namespace sicet7{
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief This method is part of the Run Stack. This method is used to Cleanup after the Main::Loop has finished.
          * 
-         * @private
-         * 
-         * @return int
+         * @return int 
          */
         int Main::CleanUp(){
             sicet7::Application::Threads::TouchThread::Stop();
@@ -129,26 +103,20 @@ namespace sicet7{
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief Returns a boolean value that represents whether or not the Setup method is finished running. 
          * 
-         * @public
-         * 
-         * @return bool
+         * @return true 
+         * @return false 
          */
         bool Main::IsSetupComplete(){
             return Main::setupComplete;
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief Returns a boolean value that represents whether or not the CleanUp method is finished running.
          * 
-         * @public
-         * 
-         * @return bool
+         * @return true 
+         * @return false 
          */
         bool Main::IsCleanUpComplete(){
             return Main::cleanUpComplete;
@@ -156,26 +124,17 @@ namespace sicet7{
 
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief This method when called will break the Loop method.
          * 
-         * @public
-         * 
-         * @return void
          */
         void Main::Stop(){
             Main::running = false;
         }
 
         /**
-         * @file Main.cpp
-         * @auther Martin René Sørensen <martin@randomphp.com>
-         * @date 1/10/2019
+         * @brief Implementation of the Run Stack.
          * 
-         * @public
-         * 
-         * @return int
+         * @return int 
          */
         int Main::Run(){
 

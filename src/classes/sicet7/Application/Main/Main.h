@@ -1,3 +1,11 @@
+/**
+ * @file Main.h
+ * @author Martin René Sørensen (sicet7@randomphp.com)
+ * @brief Definition of the Application::Main class.
+ * @version 0.1
+ * @date 2019-01-25
+ * 
+ */
 #pragma once
 
 #include <mbed.h>
