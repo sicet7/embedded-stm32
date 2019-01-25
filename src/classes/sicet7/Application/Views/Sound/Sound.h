@@ -8,6 +8,7 @@ namespace sicet7{
                 private: static rtos::Mutex* instanceLock;
 
                 public: static Lcd::UpdatableOutput* output;
+                public: AnalogIn* analogInput = 0;
 
                 public: static Sound* GetInstance();
 

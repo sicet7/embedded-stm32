@@ -10,8 +10,6 @@ namespace sicet7{
             Light* Light::instance = 0;
             
             Lcd::UpdatableOutput* Light::output = 0;
-
-            AnalogIn* Light::analogInput = 0;
             
             rtos::Mutex* Light::instanceLock = new rtos::Mutex("LightSensorViewInstanceLock");
 
@@ -36,10 +34,14 @@ namespace sicet7{
             void Light::CustomActivate(){}
             void Light::CustomDeactivate(){}
             void Light::CustomUpdate(){
-                /*if(Light::analogInput != 0 && Light::output != 0){
+                if(Light::output != 0){
+                    if(Light::analogInput == 0){
+                        Light::analogInput = new AnalogIn(A1);
+                    }
                     char buffer[30];
-                    Light::analogInput->read()
-                }*/
+                    sprintf(buffer,"%f",Light::analogInput->read());
+                    Light::output->Update(buffer);
+                }
             }
 
             void Light::Button_Trigger(Lcd::TouchObject* obj){

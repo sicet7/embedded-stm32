@@ -31,7 +31,16 @@ namespace sicet7{
 
             void Sound::CustomActivate(){}
             void Sound::CustomDeactivate(){}
-            void Sound::CustomUpdate(){}
+            void Sound::CustomUpdate(){
+                if(Sound::output != 0){
+                    if(Sound::analogInput == 0){
+                        Sound::analogInput = new AnalogIn(A2);
+                    }
+                    char buffer[20];
+                    sprintf(buffer,"%f",Sound::analogInput->read());
+                    Sound::output->Update(buffer);
+                }
+            }
 
             void Sound::Button_Trigger(Lcd::TouchObject* obj){
 

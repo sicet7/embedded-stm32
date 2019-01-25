@@ -8,11 +8,11 @@ namespace sicet7{
 
             private: static rtos::Mutex* singletonLock;
 
-            protected: static AnalogIn* anInput;
+            protected: AnalogIn* anInput = 0;
 
             public: static Sound* GetInstance();
 
-            public: static void AnalogInput(AnalogIn* ai);
+            public: void AnalogInput(AnalogIn* ai);
 
             private: rtos::Mutex* readLock;
 
